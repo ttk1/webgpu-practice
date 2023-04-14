@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "moduleResolution": "Node",
+    "module": "ES2020",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./src/backup/*"
+  ],
+}
