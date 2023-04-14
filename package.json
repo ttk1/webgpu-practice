@@ -1,6 +1,6 @@
 {
   "name": "@ttk1/webgpu-practice",
-  "version": "1.1.4",
+  "version": "0.0.0",
   "description": "WebGPU Practice",
   "main": "./dist/index.js",
   "scripts": {
