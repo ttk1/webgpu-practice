@@ -7,7 +7,8 @@
     "start": "webpack serve --mode=development",
     "lint": "eslint . --ext .ts --ext .html",
     "prepublishOnly": "npm run lint && npm run dist",
-    "dist": "rm -rf ./dist && tsc"
+    "dist": "rm -rf ./dist && tsc",
+    "docs": "webpack --mode=production"
   },
   "keywords": [
     "WebGPU",

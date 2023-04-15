@@ -5,12 +5,12 @@ module.exports = {
     index: './src/main.ts'
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'docs'),
     filename: 'main.js'
   },
   devServer: {
     static: {
-      directory: 'public',
+      directory: 'docs',
     },
     port: 3000
   },
