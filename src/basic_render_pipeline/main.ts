@@ -3,7 +3,6 @@ import shader from './shader.wgsl';
 export default async () => {
   console.log('hello, world!');
 
-
   // https://developer.mozilla.org/en-US/docs/Web/API/WebGPU_API#basic_render_pipeline
 
   const cvs = document.body.appendChild(document.createElement('canvas'));

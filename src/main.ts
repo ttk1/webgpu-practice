@@ -1,8 +1,10 @@
+import basic_render_pipeline from './basic_render_pipeline/main';
+import basic_compute_pipeline from './basic_compute_pipeline/main';
 import demo01 from './demo01/main';
-import original from './original/main';
 
 const pages = {
-  original: original,
+  basic_render_pipeline: basic_render_pipeline,
+  basic_compute_pipeline: basic_compute_pipeline,
   demo01: demo01,
 };
 
