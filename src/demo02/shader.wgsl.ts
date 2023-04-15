@@ -1,5 +1,3 @@
-export const BUFFER_SIZE = 1000;
-
 export default `
 @group(0) @binding(0)
 var<storage, read_write> output: array<f32>;

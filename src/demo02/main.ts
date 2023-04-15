@@ -1,5 +1,6 @@
 import shader from './shader.wgsl';
-import { BUFFER_SIZE } from './shader.wgsl';
+
+const BUFFER_SIZE = 1000;
 
 export default async () => {
   console.log('hello, world!');
