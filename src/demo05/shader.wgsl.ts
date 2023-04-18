@@ -1,3 +1,6 @@
+export const WORKGROUP_COUNT_BITS = 14;
+export const WORKGROUP_SIZE_BITS = 6;
+
 export default `
 fn F(X: u32, Y: u32, Z: u32) -> u32 {
   return (X & Y) | (~X & Z);
@@ -27,10 +30,10 @@ fn HH(a: ptr<private,u32>, b: u32, c: u32, d: u32, x: u32, s: u32) {
   *a = rotate(*a + H(b, c, d) + x + 0x6ed9eba1u, s);
 }
 
-var<private> A = 0x67452301u;
-var<private> B = 0xefcdab89u;
-var<private> C = 0x98badcfeu;
-var<private> D = 0x10325476u;
+var<private> A: u32;
+var<private> B: u32;
+var<private> C: u32;
+var<private> D: u32;
 
 fn update(X: array<u32, 16>) {
   let AA = A;
@@ -96,16 +99,27 @@ fn update(X: array<u32, 16>) {
 }
 
 @group(0) @binding(0)
-var<storage, read_write> result: vec4u;
+var<storage, read_write> result: array<u32>;
 
-@compute @workgroup_size(1)
-fn main() {
-  // 'baaa' の md4 を計算
-  update(array<u32, 16>(
-    0x61616162u, 0x80u, 0u, 0u,
-    0u, 0u, 0u, 0u,
-    0u, 0u, 0u, 0u,
-    0u, 0u, 32u, 0u));
-  result = vec4u(A, B, C, D);
+@compute @workgroup_size(1 << ${WORKGROUP_SIZE_BITS})
+fn main(@builtin(global_invocation_id) global_id : vec3u) {
+  for (var i = 0u; i < 1 << (32 - ${WORKGROUP_COUNT_BITS} - ${WORKGROUP_SIZE_BITS}); i++) {
+    A = 0x67452301u;
+    B = 0xefcdab89u;
+    C = 0x98badcfeu;
+    D = 0x10325476u;
+
+    let word = (global_id.x << (32 - ${WORKGROUP_COUNT_BITS} - ${WORKGROUP_SIZE_BITS})) | i;
+    update(array<u32, 16>(
+      word, 0x80u, 0u, 0u,
+      0u, 0u, 0u, 0u,
+      0u, 0u, 0u, 0u,
+      0u, 0u, 32u, 0u));
+    if (A == 0x00000000u) {
+      result[global_id.x] = word;
+      //break;
+    }
+    //result[global_id.x] = select(result[global_id.x], word, A == 0x00000000u);
+  }
 }
 `;
