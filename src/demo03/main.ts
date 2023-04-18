@@ -1,5 +1,7 @@
 import shader from './shader.wgsl';
-
+/**
+ * Particle
+ */
 const NUM_PARTICLES = 50_000;
 
 export default async () => {
