@@ -103,6 +103,7 @@ var<storage, read_write> result: array<u32>;
 
 @compute @workgroup_size(1 << ${WORKGROUP_SIZE_BITS})
 fn main(@builtin(global_invocation_id) global_id : vec3u) {
+  // ハッシュ値の先頭が 00000000 の入力を探す
   for (var i = 0u; i < 1 << (32 - ${WORKGROUP_COUNT_BITS} - ${WORKGROUP_SIZE_BITS}); i++) {
     A = 0x67452301u;
     B = 0xefcdab89u;
