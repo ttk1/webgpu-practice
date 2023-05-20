@@ -9,6 +9,8 @@ export default async () => {
 
   const adapter = await navigator.gpu.requestAdapter();
   const device = await adapter.requestDevice();
+
+
   const output = device.createBuffer({
     size: BUFFER_SIZE,
     usage: GPUBufferUsage.STORAGE | GPUBufferUsage.COPY_SRC,
