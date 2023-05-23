@@ -6,6 +6,7 @@ import demo03 from './demo03/main';
 import demo04 from './demo04/main';
 import demo05 from './demo05/main';
 import demo06 from './demo06/main';
+import demo07 from './demo07/main';
 
 const pages = {
   basic_render_pipeline: basic_render_pipeline,
@@ -16,6 +17,7 @@ const pages = {
   demo04: demo04,
   demo05: demo05,
   demo06: demo06,
+  demo07: demo07,
 };
 
 function index() {
