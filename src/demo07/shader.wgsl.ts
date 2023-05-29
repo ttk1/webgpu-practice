@@ -4,17 +4,20 @@ struct VertexOut {
   @location(0) uv : vec2f
 }
 
+@group(0) @binding(0) var<uniform> mvpMat: mat4x4f;
+
 @vertex
-fn vertex_main(@location(0) position: vec4f) -> VertexOut
+fn vertex_main(@location(0) position: vec3f,
+               @location(1) uv: vec2f) -> VertexOut
 {
   var output : VertexOut;
-  output.position = position;
-  output.uv = position.xy * 0.5 + 0.5;
+  output.position = mvpMat * vec4(position, 1.0);
+  output.uv = uv;
   return output;
 }
 
-@group(0) @binding(0) var mySampler: sampler;
-@group(0) @binding(1) var myTexture: texture_2d<f32>;
+@group(0) @binding(1) var mySampler: sampler;
+@group(0) @binding(2) var myTexture: texture_2d<f32>;
 
 @fragment
 fn fragment_main(fragData: VertexOut) -> @location(0) vec4f
