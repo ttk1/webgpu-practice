@@ -142,9 +142,15 @@ export default async () => {
 
   const textureBuffer = device.createBuffer({
     size: 256 * 192 * 4 * 2,
-    usage: GPUBufferUsage.COPY_SRC,
-    mappedAtCreation: true,
+    usage: GPUBufferUsage.COPY_SRC | GPUBufferUsage.MAP_WRITE,
+    //mappedAtCreation: true,
   });
+  // mappedAtCreation: true を使わない場合は mapAsync でデータを送信する
+  await textureBuffer.mapAsync(
+    GPUMapMode.WRITE,
+    0,
+    256 * 192 * 4 * 2
+  );
   const pixelData = new Uint8Array(textureBuffer.getMappedRange());
 
   const cvs2 = document.createElement('canvas');
